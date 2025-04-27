@@ -75,7 +75,7 @@ export default {
     async fetchTemperature() {
       try {
         const response = await axios.get(
-          'http://caboruivo.tecnico.ulisboa.pt:64104/api/obs'
+          'https://api.open-meteo.com/v1/forecast?latitude=38.7167&longitude=-9.1333&hourly=temperature_2m'
         );
 
         if (response.data && response.data.data && response.data.data.temp) {
