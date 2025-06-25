@@ -1,19 +1,19 @@
-import time
+    import time
 from fusion_solar_py.client import FusionSolarClient
 from influxdb_client import InfluxDBClient, Point, WritePrecision
 from influxdb_client.client.write_api import SYNCHRONOUS
 
-# Configuração do FusionSolar API
+# ConfiguraÃ§Ã£o do FusionSolar API
 client = FusionSolarClient(
     "iplusoerisa",
-    "Lusofona22",
+    "Lusofona2022",
     huawei_subdomain="uni003eu5"
 )
 
-# Configuração do InfluxDB
-INFLUXDB_URL = "http://172.17.0.2:8086" # Local InfluxDB
-# INFLUXDB_URL = "https://influx.spaces.deisi.ulusofona.pt" # Cloud URL
-INFLUXDB_TOKEN = "A_mCKtmjP9M2l_9Rn4Q8WibJJoRINBm6_fCgaM6NCoBXXn30VdKob373j7RbyRIVwO05isi9jxWA0Bon1rhPsA=="
+# ConfiguraÃ§Ã£o do InfluxDB
+INFLUXDB_URL = "http://172.17.0.2:8086"  # Local InfluxDB
+#INFLUXDB_URL = "https://influx.spaces.deisi.ulusofona.pt"  # Cloud URL
+INFLUXDB_TOKEN = "A_mCKtmjP9M2l_9Rn4Q8WibJJoRINBm6_fCgaM6NCoBXXn3OVdKob373j7RbyRIVwO05isi9jxWA0Bon1rhPsA=="
 INFLUXDB_ORG = "energy"
 INFLUXDB_BUCKET = "energy"
 
@@ -33,20 +33,25 @@ def main():
         if len(plant_ids) < 2:
             print("Error: There is no second plant registered in the system.")
             return
+
         second_plant_id = plant_ids[1]
         print(f"Collecting data from plant ID: {second_plant_id}")
+
+        # Get plant data
+        plant_data = client.get_current_plant_data(second_plant_id)
         if not plant_data:
             print("Error: No data received from the plant.")
             return
-        print("Plant data:", plant_data)
 
+        print("Plant data:", plant_data)
+        
         # Extract metrics with default values
         metrics = {
             "current_power": plant_data.get("currentPower", 0),
-            "daily_use_energy": plant_data.get("daily_use_energy", 0),
-            "daily_self_use_energy": plant_data.get("daily_self_use_energy", 0),
-            "month_energy": plant_data.get("month_energy", 0),
-            "year_energy": plant_data.get("year_energy", 0),
+            "daily_use_energy": plant_data.get("dailyUseEnergy", 0),
+            "daily_self_use_energy": plant_data.get("dailySelfUseEnergy", 0),
+            "month_energy": plant_data.get("monthEnergy", 0),
+            "year_energy": plant_data.get("yearEnergy", 0)
         }
 
         # Print metrics
@@ -66,23 +71,24 @@ def main():
             .field("year_energy", metrics["year_energy"]) \
             .time(time.time_ns(), WritePrecision.NS)
 
-            # Write to InfluxDB
-            write_api.write(
-                bucket=INFLUXDB_BUCKET,
-                org=INFLUXDB_ORG,
-                record=point
-            )
+        # Write to InfluxDB
+        write_api.write(
+            bucket=INFLUXDB_BUCKET,
+            org=INFLUXDB_ORG,
+            record=point
+        )
 
-            print(f"Data sent to InfluxDB: Plant {second_plant_id} - Power: {metrics['current_power']} kW")
+        print(f"Data sent to InfluxDB: Plant {second_plant_id} - Power: {metrics['current_power']} kW")
 
-        except Exception as e:
-            print(f"An error occurred: {str(e)}")
-        finally:
-            # Ensure client logout
-            client.log_out()
-            # Close InfluxDB client
-            if 'influx_client' in locals():
-                influx_client.close()
+    except Exception as e:
+        print(f"An error occurred: {str(e)}")
+    finally:
+        # Ensure client logout
+        client.log_out()
+        # Close InfluxDB client
+        if 'influx_client' in locals():
+            influx_client.close()
 
 if __name__ == "__main__":
     main()
+
