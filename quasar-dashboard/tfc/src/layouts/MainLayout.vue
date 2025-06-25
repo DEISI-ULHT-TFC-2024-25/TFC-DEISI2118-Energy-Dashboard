@@ -10,24 +10,9 @@
           :style="{ width: '350px', height: 'auto' }"
         />
 
-
         <q-space />
 
 
-        <div class="date-time">
-          <span>{{ currentDate }}</span>
-
-        </div>
-
-
-        <div class="temperature">
-
-  <span class="material-icons" :style="{ color: temperatureColor, marginRight: '12px', fontSize: '20px'}">
-    sunny
-  </span>
-  <span v-if="temperature !== null">{{ temperature }}°C</span>
-  <span v-else>Loading temperature...</span>
-</div>
 
       </q-toolbar>
     </q-header>
@@ -39,21 +24,14 @@
 </template>
 
 <script>
-import axios from 'axios';
-
 export default {
   data() {
     return {
       currentDate: '',
-      currentTime: '',
-      temperature: null,
-      temperatureColor: 'yellow', // Cor padrão do ícone (amarelo)
     };
   },
   created() {
-    this.updateDateTime();
-    this.fetchTemperature();
-    setInterval(this.updateDateTime, 1000 * 60); // Atualiza a data e hora a cada 1 minuto
+
   },
   methods: {
     // Função para formatar e exibir a data e hora
@@ -75,7 +53,7 @@ export default {
     async fetchTemperature() {
       try {
         const response = await axios.get(
-          'https://api.open-meteo.com/v1/forecast?latitude=38.7167&longitude=-9.1333&hourly=temperature_2m'
+          'http://caboruivo.tecnico.ulisboa.pt:64104/api/obs'
         );
 
         if (response.data && response.data.data && response.data.data.temp) {
@@ -103,9 +81,7 @@ export default {
 };
 </script>
 
-
 <style scoped>
-
 .my-toolbar {
   height: 100px;
   padding: 0 16px;
@@ -114,24 +90,9 @@ export default {
   justify-content: space-between;
 }
 
-
 .logo-img {
   max-height: 100%;
   object-fit: contain;
 }
 
-
-.date-time {
-  font-size: 14px;
-  font-weight: 400;
-  margin-right: 14px;
-}
-
-
-.temperature {
-  font-size: 14px;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-}
 </style>
