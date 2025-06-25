@@ -34,49 +34,7 @@ export default {
 
   },
   methods: {
-    // Função para formatar e exibir a data e hora
-    updateDateTime() {
-      const now = new Date();
-      this.currentDate = now.toLocaleDateString('pt-PT', {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-      });
-      this.currentTime = now.toLocaleTimeString('pt-PT', {
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-      });
-    },
-    // Função para buscar a temperatura da nova API
-    async fetchTemperature() {
-      try {
-        const response = await axios.get(
-          'http://caboruivo.tecnico.ulisboa.pt:64104/api/obs'
-        );
 
-        if (response.data && response.data.data && response.data.data.temp) {
-          this.temperature = response.data.data.temp[0]; // Pega a temperatura do primeiro valor disponível
-          this.setTemperatureColor(); // Atualiza a cor do ícone com base na temperatura
-        }
-      } catch (error) {
-        console.error('Erro ao buscar temperatura:', error);
-        this.temperature = null; // Se houver erro, mantém nulla
-      }
-    },
-    // Função para definir a cor do ícone com base na temperatura
-    setTemperatureColor() {
-      if (this.temperature > 30) {
-        this.temperatureColor = 'red'; // Temperatura alta
-      } else if (this.temperature > 20) {
-        this.temperatureColor = 'orange';
-      } else if (this.temperature > 10) {
-        this.temperatureColor = 'yellow';
-      } else {
-        this.temperatureColor = 'blue'; // Frio
-      }
-    },
   },
 };
 </script>
