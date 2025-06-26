@@ -260,8 +260,8 @@
     <div class="row q-col-gutter-sm q-mt-xl justify-center">
       <div class="col-12 col-sm-6 col-md-6">
         <q-card bordered class="text-center bg-white shadow-2 rounded-borders">
-          <q-card-section class="q-pa-xl">
-            <div class="text-h4 text-primary q-mb-sm" style="letter-spacing: 2px; font-weight: 700;">
+          <q-card-section style="padding: 41px;">
+            <div class="text-h4 text-primary q-mb-sm" style="letter-spacing: 1px; font-weight: 700;">
               {{ currentTime }}
             </div>
             <div class="text-caption text-grey-6"
@@ -280,7 +280,7 @@
             </div>
           </div>
 
-          <div class="temp-row row items-center justify-center no-wrap" style="gap: 8px;">
+          <div class="temp-row row items-center justify-center no-wrap" style="gap: 12px;">
             <img :src="weatherIcon" alt="Weather Icon" class="temp-icon" style="width: 40px; height: 40px;" />
             <div class="temp-value text-h4" style="font-weight: 600; color: #222;">
               {{ temperature !== null ? temperature.toFixed(1) + '°C' : '...' }}

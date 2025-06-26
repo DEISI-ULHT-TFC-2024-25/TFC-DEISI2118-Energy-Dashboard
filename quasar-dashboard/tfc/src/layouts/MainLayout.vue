@@ -4,7 +4,7 @@
       <q-toolbar class="my-toolbar">
 
         <q-img
-          src="/src/assets/logotipo-horizontal-centro-universitario-lisboa-branco-png.png"
+          src="/logotipo-horizontal-centro-universitario-lisboa-branco-png.png"
           alt="Logo"
           class="logo-img"
           :style="{ width: '350px', height: 'auto' }"
