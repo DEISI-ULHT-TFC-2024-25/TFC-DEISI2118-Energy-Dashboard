@@ -2,7 +2,7 @@
   "name": "quasar-dashboard",
   "version": "0.0.1",
   "description": "Quasar Dashbaord",
-  "productName": "Quasar App",
+  "productName": "Energy Dashboard",
   "author": "francisco-21903074 <a21903074@alunos.ulht.pt>",
   "type": "module",
   "private": true,
