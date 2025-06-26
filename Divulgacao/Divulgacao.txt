@@ -1,0 +1,15 @@
+O projeto “Energy Dashboard” visa promover a sustentabilidade energética no campus universitário através de uma plataforma interativa de monitorização em tempo real. Este dashboard apresenta dados sobre a produção de energia solar, consumo energético e impacto ambiental, de forma intuitiva e acessível a toda a comunidade. A solução contribui para a sensibilização sobre eficiência energética e redução de emissões de CO₂, reforçando o compromisso da Universidade Lusófona com os Objetivos de Desenvolvimento Sustentável.
+
+Palavras-chave
+Energia Solar, Eficiência Energética, Sustentabilidade, Dashboard, IoT, InfluxDB, Quasar, Vue.js, CO₂, Energias Renováveis.
+
+Tecnologias Utilizadas
+Frontend: Vue.js + Quasar Framework
+Scripts: Python
+Base de Dados: InfluxDB Cloud (Séries Temporais)
+APIs: Huawei FusionSolar, Open-Meteo
+Ferramentas de Visualização: vue3-apexcharts
+Outros: JSON, CSS, HTML, Git
+
+Área
+Engenharia Informática / Sistemas de Informação / Energias Renováveis
